@@ -26,7 +26,7 @@ import java.util.Properties;
 /**
  * 
 * @ClassName: MyBatisConfig  
-* @author xebest
+* @author
 * @date 2017年4月18日  
 *
  */
