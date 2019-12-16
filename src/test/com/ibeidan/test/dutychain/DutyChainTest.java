@@ -1,6 +1,10 @@
 package com.ibeidan.test.dutychain;
 
 import com.ibeidan.web.dutychain.*;
+import com.ibeidan.web.dutychain2.Alarm;
+import com.ibeidan.web.dutychain2.FilterChain;
+import com.ibeidan.web.dutychain2.Rule1;
+import com.ibeidan.web.dutychain2.Rule2;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -34,5 +38,18 @@ public class DutyChainTest {
 
 
     }
+
+    @Test
+    public void testChain2(){
+        Alarm alarm =new Alarm(1,"A",1);
+        FilterChain filterChain = new FilterChain();
+        filterChain.addFilter(new Rule1()).addFilter(new Rule2());
+        filterChain.doFilter(alarm,filterChain);
+    }
+
+
+
+
+
 
 }
