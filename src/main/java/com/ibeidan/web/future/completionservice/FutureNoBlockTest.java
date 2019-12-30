@@ -11,7 +11,9 @@ import java.util.concurrent.*;
 
 /**
  * @author lee
- * @DATE 2019/12/27 09:52
+ *  2019/12/27 09:52
+ *  接口completionService 完全可以避开FutureTask类的阻塞的特点，可以更加有效的处理Future的返回值
+ *  也就是哪个任务先执行完，就先取得这个任务的返回值在处理。
  */
 public class FutureNoBlockTest {
 
