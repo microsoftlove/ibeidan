@@ -1,10 +1,14 @@
 package com.ibeidan.web.model;
 
+import java.io.Serializable;
+
 /**
  * @author lee
  * @DATE 2019/5/20 17:05
  */
-public class Order {
+public class Order implements Serializable {
+
+
     private Long orderId ;
     private String orderNumber;
 

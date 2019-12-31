@@ -4,6 +4,7 @@ import com.ibeidan.util.RedisUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.Serializable;
 import java.net.NetworkInterface;
 import java.net.SocketException;
 import java.util.Enumeration;
@@ -12,8 +13,10 @@ import java.util.Enumeration;
  * @author lee
  * @DATE 2019/7/7 18:02
  */
-public class NetWorkInfo {
+public class NetWorkInfo  implements Serializable {
+
     private final  static  Logger log = LoggerFactory.getLogger(NetWorkInfo.class);
+    private static final long serialVersionUID = -2220716065490309044L;
 
     public static void main(String[] args){
         Enumeration<NetworkInterface> networkInterfaceEnumeration = null;
