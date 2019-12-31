@@ -9,13 +9,7 @@ import java.io.Serializable;
 public class ThreadA extends Thread implements Serializable {
 
 
-
-
-
-
-
-
-
+    private static final long serialVersionUID = 3575940470394526340L;
     private SemphoreService semphoreService;
 
     public ThreadA(SemphoreService semphoreService) {

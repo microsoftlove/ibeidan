@@ -15,7 +15,7 @@ public class SemphoreTest {
 
     public static void main(String[] args) {
 
-        /*Semaphore semaphore = new Semaphore(1);
+        Semaphore semaphore = new Semaphore(2);
         SemphoreService semphoreService = new SemphoreService(semaphore);
         ThreadA a = new ThreadA(semphoreService);
         a.setName("A");
@@ -28,16 +28,45 @@ public class SemphoreTest {
 
         a.start();
         b.start();
-        c.start();*/
+        c.start();
 
-        Semaphore semaphore2 = new Semaphore(10);
+       /* Semaphore semaphore2 = new Semaphore(10);
         SemphoreService semphoreService1 = new SemphoreService(semaphore2);
         ThreadAcquire[] acquires = new ThreadAcquire[10];
         for (int i = 0; i < 10; i++) {
-            acquires[i]= new ThreadAcquire(semphoreService1,2);
+            acquires[i]= new ThreadAcquire(semphoreService1,1);
             acquires[i].start();
-        }
+        }*/
 
+       // testAcquireUnInteruptable();
+
+
+    }
+
+    /**
+     * @author libeibei
+     * 2019/12/31 16:30
+     **/
+    public static void testAcquireUnInteruptable(){
+        Semaphore semaphore = new Semaphore(1);
+        int permits = 1;
+        SemphoreService semphoreService = new SemphoreService(semaphore);
+        ThreadAcquireUnInterruptilyA a = new ThreadAcquireUnInterruptilyA(semphoreService,permits);
+        a.setName("A");
+
+        ThreadAcquireUnInterruptilyB b = new ThreadAcquireUnInterruptilyB(semphoreService,permits);
+        b.setName("B");
+
+        a.start();
+        b.start();
+
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        b.interrupt();
+        System.out.println("main 中断了 a");
 
     }
 
