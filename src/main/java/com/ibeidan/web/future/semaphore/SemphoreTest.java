@@ -15,7 +15,7 @@ public class SemphoreTest {
 
     public static void main(String[] args) {
 
-        Semaphore semaphore = new Semaphore(2);
+        /*Semaphore semaphore = new Semaphore(2);
         SemphoreService semphoreService = new SemphoreService(semaphore);
         ThreadA a = new ThreadA(semphoreService);
         a.setName("A");
@@ -28,7 +28,7 @@ public class SemphoreTest {
 
         a.start();
         b.start();
-        c.start();
+        c.start();*/
 
        /* Semaphore semaphore2 = new Semaphore(10);
         SemphoreService semphoreService1 = new SemphoreService(semaphore2);
@@ -40,7 +40,8 @@ public class SemphoreTest {
 
        // testAcquireUnInteruptable();
 
-
+       // testMoreToOne();
+        testPool();
     }
 
     /**
@@ -68,6 +69,31 @@ public class SemphoreTest {
         b.interrupt();
         System.out.println("main 中断了 a");
 
+    }
+
+    public static void testMoreToOne(){
+        Semaphore semaphore = new Semaphore(3);
+        SemaphoreMoreToOneService semphoreMoreToOneService
+                = new SemaphoreMoreToOneService(semaphore);
+        ThreadMoreToOne[] moreToOnes =new ThreadMoreToOne[12];
+        for (int i = 0; i < moreToOnes.length; i++) {
+            moreToOnes[i] = new ThreadMoreToOne(semphoreMoreToOneService);
+            moreToOnes[i].start();
+        }
+
+
+    }
+
+    public static void testPool (){
+        SemaphorePoolService semaphorePoolService = new SemaphorePoolService();
+        ThreadPool[] threadPools = new ThreadPool[12];
+        for (int i = 0; i < threadPools.length; i++) {
+            threadPools[i] = new ThreadPool(semaphorePoolService);
+        }
+
+        for (int i = 0; i < threadPools.length; i++) {
+            threadPools[i].start();
+        }
     }
 
 }
