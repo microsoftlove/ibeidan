@@ -41,7 +41,9 @@ public class SemphoreTest {
        // testAcquireUnInteruptable();
 
        // testMoreToOne();
-        testPool();
+       // testPool();
+
+        testPro();
     }
 
     /**
@@ -95,5 +97,27 @@ public class SemphoreTest {
             threadPools[i].start();
         }
     }
+
+    public static void testPro(){
+        SemaphoreProService semaphoreProService = new SemaphoreProService();
+        ThreadProduce[] produces = new ThreadProduce[20];
+        ThreadConsume[] consumes = new ThreadConsume[20];
+
+        for (int i = 0; i < produces.length; i++) {
+            produces[i] = new ThreadProduce(semaphoreProService);
+            consumes[i] = new ThreadConsume(semaphoreProService);
+        }
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        for (int i = 0; i < produces.length ; i++) {
+            produces[i].start();
+            consumes[i].start();
+        }
+    }
+
 
 }
