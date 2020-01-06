@@ -6,4 +6,5 @@ package com.ibeidan.web.future.exchange;
  *  可以使2个线程之间传输数据
  */
 public class ExchangeService {
+
 }
