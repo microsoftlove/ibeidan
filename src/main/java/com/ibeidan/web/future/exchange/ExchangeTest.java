@@ -5,7 +5,7 @@ import java.util.concurrent.Exchanger;
 /**
  * @author lee
  *  2020/1/3 15:03
- *
+ *线程间通信
  */
 public class ExchangeTest {
 
