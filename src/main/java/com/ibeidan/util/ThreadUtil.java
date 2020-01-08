@@ -9,4 +9,12 @@ public class ThreadUtil {
     public static void outThreadName(String msg){
         System.out.println(Thread.currentThread().getName()+" "+msg+" " +System.currentTimeMillis());
     }
+
+    public static void sleep(long sleep){
+        try {
+            Thread.sleep(sleep);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
 }

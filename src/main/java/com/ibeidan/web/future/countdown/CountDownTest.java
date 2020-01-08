@@ -46,7 +46,7 @@ public class CountDownTest {
         try {
             System.out.println("等待回来……");
             //使线程在指定的最大时间单位内进入waiting状态，如果超过这个时间则自动唤醒，程序继续向下执行。
-            boolean fl= countDownLatch.await(5, TimeUnit.SECONDS);
+            boolean fl= countDownLatch.await(1, TimeUnit.SECONDS);
             System.out.println("等待回来……"+fl);
         } catch (InterruptedException e) {
             e.printStackTrace();
