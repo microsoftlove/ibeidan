@@ -21,7 +21,7 @@ public class RejectTest {
         executorService.shutdown();
         Future future3 = executorService.submit(new MyRunnable(new UserInfo("3","")));
 
-        System.out.println("main A " + new Date());
+        System.out.println("main A  dd " + new Date());
         try {
             System.out.println("future.get =" + future.get(1000, TimeUnit.MILLISECONDS)+" done= " +future.isDone());
         } catch (InterruptedException e) {
