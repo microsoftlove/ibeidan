@@ -13,7 +13,7 @@ public class MyRunnableP implements Runnable {
     @Override
     public void run() {
         ThreadUtil.outThreadName("run---");
-        ThreadUtil.sleep(2000);
-        new ArrayList<>().get(3);
+        ThreadUtil.sleep(1000);
+        //new ArrayList<>().get(3);
     }
 }

@@ -1,14 +1,16 @@
 package com.ibeidan.web.future.executor;
 
 import com.ibeidan.util.ThreadUtil;
-import com.ibeidan.web.future.MyRunnable;
-import com.ibeidan.web.future.UserInfo;
+
 
 import java.util.concurrent.*;
 
 /**
  * @author lee
  * 2020/1/13 15:06
+ * 在使用ThreadPoolExecutor线程池的过程中，常使用的3种队列
+ * ArrayBlockQueue、LinkedBlockingDeque、SynchronousQueue
+ * 前二者可以指定队列存储元素的多少
  */
 public class ThreadPoolExecutorTest {
 
@@ -19,7 +21,10 @@ public class ThreadPoolExecutorTest {
         //testSyncronous();
         //testAwaitTermination();
         //testAwaitTerminationShutDown();
-        testException();
+        //testException();
+        //testRejectException();
+        //testArrayBlockQueue();
+        testMyPool();
     }
 
     /**
@@ -164,4 +169,50 @@ public class ThreadPoolExecutorTest {
         poolExecutor.setThreadFactory(new MyThreadFactoryExeception());
         poolExecutor.execute(new MyRunnableP());
     }
+
+    public static void testRejectException(){
+
+        ThreadPoolExecutor poolExecutor = new ThreadPoolExecutor(2,3,99999l,TimeUnit.SECONDS,
+                new SynchronousQueue<>());
+        poolExecutor.setThreadFactory(new MyThreadFactoryExeception());
+
+        poolExecutor.setRejectedExecutionHandler(new MyRecetcExection());
+        poolExecutor.execute(new MyRunnableP());
+
+        poolExecutor.execute(new MyRunnableP());
+        poolExecutor.execute(new MyRunnableP());
+        poolExecutor.execute(new MyRunnableP());
+
+        ThreadUtil.sleep(3000l);
+        ThreadUtil.outThreadName("完成任务数："+poolExecutor.getCompletedTaskCount());
+
+
+        poolExecutor.shutdown();
+    }
+
+    public static void testArrayBlockQueue(){
+        ArrayBlockingQueue arrayBlockingQueue = new ArrayBlockingQueue(2);
+        System.out.println(arrayBlockingQueue.size());
+        ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(2,3,5,TimeUnit.SECONDS
+        ,arrayBlockingQueue,new ThreadPoolExecutor.DiscardPolicy());
+        for (int i = 0; i < 6; i++) {
+            threadPoolExecutor.execute(new MyRunnableP());
+        }
+        System.out.println(threadPoolExecutor.getQueue().size());
+        System.out.println(threadPoolExecutor.getPoolSize()+"==="+arrayBlockingQueue.size());
+        ThreadUtil.sleep(5000l);
+        threadPoolExecutor.shutdownNow();
+    }
+
+
+    static void testMyPool(){
+        MyThreadPoolExecutor myThreadPoolExecutor =new MyThreadPoolExecutor(2,2,
+                5,TimeUnit.SECONDS,new ArrayBlockingQueue<>(5));
+        for (int i = 0; i < 4; i++) {
+            myThreadPoolExecutor.execute(new MyRunnableP());
+        }
+        //myThreadPoolExecutor.remove(); execute 未执行的任务可以删除成功，submit方法提交的任务未被执行时，不能移除。
+    }
+
+
 }
