@@ -15,7 +15,11 @@ public class ThreadPoolExecutorTest {
 
     public static void main(String[] args) {
         //testLessCorePool();
-        testMoreCorePool();
+        //testMoreCorePool();
+        //testSyncronous();
+        //testAwaitTermination();
+        //testAwaitTerminationShutDown();
+        testException();
     }
 
     /**
@@ -58,7 +62,7 @@ public class ThreadPoolExecutorTest {
         ThreadPoolExecutor exe = new ThreadPoolExecutor(7,8,5,TimeUnit.SECONDS,
                 new LinkedBlockingDeque<>());
 
-        for (int i = 0; i < 8; i++) {
+        for (int i = 0; i < 18; i++) {
             exe.submit(new MyRunnableP());
         }
 
@@ -71,5 +75,93 @@ public class ThreadPoolExecutorTest {
         System.out.println("B:"+exe.getCorePoolSize());
         System.out.println("B:"+exe.getPoolSize());
         System.out.println("B:"+exe.getQueue().size());
+    }
+    /**
+     * A：执行的线程数量
+     * B：corePoolSize
+     * C：maximumPoolSize
+     * D：A-B（假设A>=B）
+     * E:代表LinkedBlockingDeque
+     * F：SynchronousQueue
+     * G：代表存活时间
+     *
+     **/
+
+    /**
+     *场景三：如果执行的线程数量大于corePoolSize&&<=maximumPoolSize&&为SynchronousQueue，则
+     * C和D参数有效，并且马上创建线程执行这些任务，而不把D放入F中，D执行完任务后在指定时间后发生超时
+     * 时将D进行清除。
+     **/
+    public static void testSyncronous(){
+        ThreadPoolExecutor exe = new ThreadPoolExecutor(7,8,5,TimeUnit.SECONDS,
+                new SynchronousQueue<>());
+
+        for (int i = 0; i < 8; i++) {
+            exe.submit(new MyRunnableP());
+        }
+
+        ThreadUtil.sleep(300);
+        System.out.println("A:"+exe.getCorePoolSize());//车中可载人的标准人数
+        System.out.println("A:"+exe.getMaximumPoolSize());//车中可载人的最大人数
+        System.out.println("A:"+exe.getPoolSize());//车中正在载的人数
+        System.out.println("A:"+exe.getQueue().size());//扩展车中正在载的人数
+        ThreadUtil.sleep(10000);
+        System.out.println("B:"+exe.getCorePoolSize());
+        System.out.println("B:"+exe.getPoolSize());
+        System.out.println("B:"+exe.getQueue().size());
+        exe.shutdown();//当线程池调用shutdown方法时，线程池的状态则立刻变成SHUTDOWN状态，此时不能再往线程池
+        //中添加任何任务，否则将会抛出RejectedExecutionException异常。但是此时线程池不会立刻退出，直到线程池中的
+        //任务都已经处理完成，才会退出。
+        //exe.shutdownNow();//此方法使线程池中的状态变为stop状态，并试图停止所有正在执行的线程（如果有if判断则人为的抛出异常）
+        //不再处理还在池队列中等待的任务，当然，它会返回那些未执行的任务。返回List<Runnable>,list对象存储的是还未运行的任务，也就是被
+        //取消掉的任务。
+        //
+    }
+
+
+    /**
+     *awaitTermination(10,TimeUnit.SECONDS)的作用就是查看在指定的时间之间，
+     * 线程池是否已经停止工作，也就是最多等待多少时间后去判断线程池是否已经停止工作
+     * 此方法需要有shutdown（）方法的配合
+     **/
+    public static void testAwaitTermination(){
+        ThreadPoolExecutor executor =new ThreadPoolExecutor(2,99999,99999l,TimeUnit.SECONDS
+        ,new LinkedBlockingDeque<Runnable>());
+        executor.execute(new MyRunnableP());
+        System.out.println("main begin !"+System.currentTimeMillis());
+        try {
+            //awaitTermination方法具有阻塞性
+            System.out.println(executor.awaitTermination(10,TimeUnit.SECONDS));
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        System.out.println("main end !"+System.currentTimeMillis());
+    }
+
+    /**
+     *
+     **/
+    public static void testAwaitTerminationShutDown(){
+        ThreadPoolExecutor executor =new ThreadPoolExecutor(2,99999,99999l,TimeUnit.SECONDS
+                ,new LinkedBlockingDeque<Runnable>());
+        executor.execute(new MyRunnableP());
+        executor.shutdown();//
+        System.out.println("main begin !"+System.currentTimeMillis());
+        try {
+            //awaitTermination方法具有阻塞性 如果池中有任务在被执行时，则调用awaitTermination
+            //出现阻塞，等待指定的时间，如果没有任务时则不再阻塞。
+            System.out.println(executor.awaitTermination(1,TimeUnit.SECONDS));
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        System.out.println("main end !"+System.currentTimeMillis());
+    }
+
+    public static void testException(){
+
+        ThreadPoolExecutor poolExecutor = new ThreadPoolExecutor(2,9999,99999l,TimeUnit.SECONDS,
+                new LinkedBlockingDeque<Runnable>());
+        poolExecutor.setThreadFactory(new MyThreadFactoryExeception());
+        poolExecutor.execute(new MyRunnableP());
     }
 }
