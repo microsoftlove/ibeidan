@@ -15,6 +15,7 @@ public class DateUtils {
        // long timeStamp = System.currentTimeMillis();  //获取当前时间戳,也可以是你自已给的一个随机的或是别人给你的时间戳(一定是long型的数据)
          Long time = Long.valueOf(timeStamp);
         System.out.println(new Date(time));//打印出你要的时间
+        System.out.println(new Date(time));//打印出你要的时间
        return  new Date(time);
     }
     public static String getLocal(String value,int index){
@@ -27,7 +28,6 @@ public class DateUtils {
      * 日期字符串转换为毫秒
      *
      * @param dateStr(日期字符串，例如：2015-12-30 22:15:30)
-     * @param dateFormat                  (日期格式: yyyy-MM-dd HH:mm:ss)
      * @return
      */
     public static Long getDateStrToLong(String dateStr) {
