@@ -1,6 +1,6 @@
 package com.ibeidan.util;
 
-public interface Constants {
+public class Constants {
 
     public final static  String SPLIT=",";
     public final static  String SPACE=" ";

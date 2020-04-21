@@ -30,9 +30,11 @@ import java.util.Properties;
 * @date 2017年4月18日  
 *
  */
+/*
 @Configuration
 @ComponentScan
 @MapperScan(basePackages = "com.ibeidan.web.mapper.write", sqlSessionFactoryRef = "writeSqlSessionFactory") //扫描mappper
+*/
 public class MyBatisWriteConfig {
 	@Value("${spring.datasource.write.type}")
     private Class<? extends DataSource> dataSourceType;  
@@ -118,7 +120,7 @@ public class MyBatisWriteConfig {
         sqlSessionFactoryBean.setPlugins(new Interceptor[]{pageHelper});	
 		
 		PathMatchingResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
-		sqlSessionFactoryBean.setMapperLocations(resolver.getResources("classpath:/mybatis/write/*.xml"));
+		//sqlSessionFactoryBean.setMapperLocations(resolver.getResources("classpath:/mybatis/write/*.xml"));
 		sqlSessionFactoryBean.getObject().getConfiguration().setMapUnderscoreToCamelCase(true);
 		return sqlSessionFactoryBean.getObject();
 	}
