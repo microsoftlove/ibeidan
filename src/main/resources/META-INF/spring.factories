@@ -1,0 +1,4 @@
+org.springframework.boot.SpringApplicationRunListener=com.ibeidan.web.extend.MySpringApplicationRunListener
+org.springframework.context.ApplicationListener=com.ibeidan.web.extend.MyApplicationListener
+org.springframework.context.ApplicationContextInitializer=com.ibeidan.web.extend.MyApplicationContextInitializer
+org.springframework.boot.diagnostics.FailureAnalyzer=com.ibeidan.web.extend.MyFailureAnalyzer
