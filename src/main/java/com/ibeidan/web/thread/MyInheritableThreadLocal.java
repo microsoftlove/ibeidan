@@ -5,7 +5,10 @@ import java.util.concurrent.Executors;
 
 /**
  * @author lee
- * @DATE 2020/4/23 19:11
+ * DATE 2020/4/23 19:11
+ *
+ * 子线程pool-1-thread-1可以获取到父线程在local里面设置的值，
+ * 这就实现了值的传递了。
  */
 public class MyInheritableThreadLocal {
 
