@@ -20,7 +20,7 @@ public class DutyChainTest {
     public void testChain(){
         Random random = new Random();
         ArrayList<IWomen> arrayList = new ArrayList<>();
-        for (int i =0 ;i<5 ;i++){
+        for (int i =0 ;i<1 ;i++){
             arrayList.add(new Women(random.nextInt(4),"我要去逛街"));
         }
 
