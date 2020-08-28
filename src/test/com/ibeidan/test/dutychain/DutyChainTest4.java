@@ -1,9 +1,8 @@
 package com.ibeidan.test.dutychain;
 
 
-import com.ibeidan.web.dutychain4.Alarm;
-import com.ibeidan.web.dutychain4.FilterChain;
-import com.ibeidan.web.dutychain4.FilterFactory;
+import com.alibaba.fastjson.JSON;
+import com.ibeidan.web.dutychain4.*;
 import org.junit.Test;
 
 /**
@@ -25,6 +24,36 @@ public class DutyChainTest4 {
         System.out.println(alarm.toString());
     }
 
+
+    @Test
+    public void testChain5() throws Exception{
+        Long sys = System.currentTimeMillis();
+        Request request = new Request(1L,"131");
+        Response response = new Response();
+        FilterChain filterChain = new FilterChain();
+        filterChain.addFilters(FilterFactory.getFilters("com.ibeidan.web.dutychain4","a"));
+        //filterChain.addFilter(new Rule1()).addFilter(new Rule2());
+        filterChain.doFilter(request,response,filterChain);
+        System.out.println(response.getUser().getUserResultList());
+        System.out.println(response.getCourier().getCourierResultList());
+        System.out.println(JSON.toJSONString(response));
+        System.out.println(System.currentTimeMillis()-sys);
+    }
+
+    @Test
+    public void testChain6() throws Exception{
+        Long sys = System.currentTimeMillis();
+        Request request = new Request(1L,"131");
+        Response response = new Response();
+        FilterChain filterChain = new FilterChain();
+      //  filterChain.addFilters(FilterFactory.getFilters("com.ibeidan.web.dutychain4","a"));
+        filterChain.addFilter(new Rule1()).addFilter(new Rule2());
+        filterChain.doFilter(request,response,filterChain);
+        System.out.println(response.getUser().getUserResultList());
+        System.out.println(response.getCourier().getCourierResultList());
+        System.out.println(JSON.toJSONString(response));
+        System.out.println(System.currentTimeMillis()-sys);
+    }
 
 
 }

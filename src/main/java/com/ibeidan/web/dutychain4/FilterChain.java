@@ -13,6 +13,8 @@ public class FilterChain {
 
     private int index = 0;
 
+    private int index2 = 0;
+
     public FilterChain addFilter(Filter filter){
         this.filterList.add(filter);
         return this;
@@ -37,5 +39,20 @@ public class FilterChain {
         Filter filter = filterList.get(index);
         index ++ ;
         filter.execute(alarm,filterChain);
+    }
+
+    public void doFilter(Request request,Response response, FilterChain filterChain){
+        if (index2 == filterList.size()){
+            return;
+        }
+
+        /*if (filterList.iterator().hasNext()){
+            Filter filter2 = filterList.iterator().next();
+            filter2.execute(alarm,filterChain);
+        }*/
+
+        Filter filter = filterList.get(index2);
+        index2 ++ ;
+        filter.execute(request,response,filterChain);
     }
 }

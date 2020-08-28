@@ -5,6 +5,9 @@ import java.util.ArrayList;
 /**
  * @author lee
  * @DATE 2019/3/4 18:51
+ *
+ * 具体的被观察者
+ * 定义被观察者自己的业务逻辑，同时定义对哪些事件进行通知
  */
 public class WeatherDataSubject implements WeatherSubject{
 

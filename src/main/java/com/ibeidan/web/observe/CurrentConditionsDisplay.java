@@ -3,6 +3,10 @@ package com.ibeidan.web.observe;
 /**
  * @author lee
  * @DATE 2019/3/4 19:17
+ *
+ * 具体的观察者
+ * 接收到消息后处理反应是不同的，各个观察者有自己的处理逻辑
+ *
  */
 public class CurrentConditionsDisplay implements ObserverWeather,DisplayElement{
     private float temp;
