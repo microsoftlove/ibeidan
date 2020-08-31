@@ -8,6 +8,6 @@ public class MsgObserver implements IMsgObserver {
 
     @Override
     public void update(String msg) {
-        System.out.println("MsgObserver 接收到消息：" + msg);
+        System.out.println("FinishMsgObserver 接收到消息：" + msg);
     }
 }

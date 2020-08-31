@@ -7,6 +7,6 @@ package com.ibeidan.web.observe1;
 public class MsgObserver2 implements IMsgObserver {
     @Override
     public void update(String msg) {
-        System.out.println("MsgObserver2 收到消息：" + msg);
+        System.out.println("FinishMsgObserver2 收到消息：" + msg);
     }
 }
