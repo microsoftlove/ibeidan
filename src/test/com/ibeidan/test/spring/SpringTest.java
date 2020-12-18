@@ -33,4 +33,19 @@ public class SpringTest {
         orderService.queryOrderById(888l);
     }
 
+    @Test
+    public void testInteger(){
+        Integer a = 4002 ;
+        Integer b = 4002 ;
+        System.out.println(a.equals(b));
+
+        User user = new User();
+        user.setCode(4002);
+
+        System.out.println(user.getCode().equals(4002));
+        //TODO 字符串不相等
+        System.out.println(user.getCode().equals("4002"));
+
+    }
+
 }

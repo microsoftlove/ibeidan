@@ -24,7 +24,7 @@ public class MyRunnable implements Runnable {
         for (int i = 0; i < 5; i++) {
             System.out.println(i);
             RestTemplate restTemplate = new RestTemplate();
-            ResponseEntity result = restTemplate.getForEntity("http://localhost:8088/test",String.class);
+            ResponseEntity result = restTemplate.getForEntity("https://www.baidu.com",String.class);
             System.out.println(result);
         }
         userInfo.setUserName("libeibei");

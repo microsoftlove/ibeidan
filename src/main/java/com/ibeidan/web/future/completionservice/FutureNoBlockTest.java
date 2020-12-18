@@ -19,11 +19,11 @@ public class FutureNoBlockTest {
 
     public static void main(String[] args){
 
-        MyCallableQueue myCallableQueue1 = new MyCallableQueue("one",5000l);
-        MyCallableQueue myCallableQueue2 = new MyCallableQueue("two",4000l);
-        MyCallableQueue myCallableQueue3 = new MyCallableQueue("three",3000l);
-        MyCallableQueue myCallableQueue4 = new MyCallableQueue("four",2000l);
-        MyCallableQueue myCallableQueue5 = new MyCallableQueue("five",1000l);
+        MyCallableQueue myCallableQueue1 = new MyCallableQueue("one",10l);
+        MyCallableQueue myCallableQueue2 = new MyCallableQueue("two",10l);
+        MyCallableQueue myCallableQueue3 = new MyCallableQueue("three",10l);
+        MyCallableQueue myCallableQueue4 = new MyCallableQueue("four",100l);
+        MyCallableQueue myCallableQueue5 = new MyCallableQueue("five",1088l);
 
         List<Callable> callableList = new ArrayList<>();
         callableList.add(myCallableQueue1);
@@ -53,5 +53,8 @@ public class FutureNoBlockTest {
                 e.printStackTrace();
             }
         }
+        System.out.println("run main time "+ new Date());
+        threadPoolExecutor.shutdown();
     }
+
 }
